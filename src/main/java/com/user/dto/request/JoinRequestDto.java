@@ -1,4 +1,4 @@
-package com.user.dto;
+package com.user.dto.request;
 
 import com.user.entity.Member;
 import lombok.Getter;

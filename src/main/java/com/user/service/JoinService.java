@@ -1,6 +1,6 @@
 package com.user.service;
 
-import com.user.dto.JoinRequestDto;
+import com.user.dto.request.JoinRequestDto;
 import com.user.entity.Member;
 import com.user.repository.MemberRepository;
 import lombok.RequiredArgsConstructor;
@@ -22,8 +22,10 @@ public class JoinService {
 
     private void validateDuplicateLoginId(String loginId) {
         try {
-            memberRepository.findByLoginId(loginId);
-            throw new IllegalStateException("이미 존재하는 로그인 ID입니다.");
+            Member member = memberRepository.findByLoginId(loginId);
+            if(member != null) {
+                throw new IllegalStateException("이미 존재하는 로그인 ID입니다.");
+            }
         } catch (jakarta.persistence.NoResultException e) {
             // 중복되지 않음 - 정상
         }

@@ -1,14 +1,14 @@
-package com.example.demo;
+package com;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
 @SpringBootApplication
-public class DemoApplication {
+public class MiniCommerceApplication {
 
 	public static void main(String[] args) {
 		System.out.println("demo");
-		SpringApplication.run(DemoApplication.class, args);
+		SpringApplication.run(MiniCommerceApplication.class, args);
 	}
 
 }
