@@ -5,6 +5,7 @@ import com.product.dto.request.ProductSearchCondition;
 import com.product.dto.response.ProductResponseDto;
 import com.product.entity.Product;
 import com.product.repository.ProductRepository;
+import com.product.repository.ProductRepositoryCustom;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
@@ -14,10 +15,11 @@ import java.util.List;
 @RequiredArgsConstructor
 public class ProductServiceImpl implements ProductService{
     private final ProductRepository productRepository;
+    private final ProductRepositoryCustom productRepositoryCustom;
 
     @Override
     public List<ProductResponseDto> getProductByCondition(ProductSearchCondition condition) {
-        return productRepository.searchProducts(condition.getCategory(), condition.getName())
+        return productRepositoryCustom.searchProducts(condition.getCategory(), condition.getName())
                 .stream().map(ProductResponseDto::from).toList();
     }
 

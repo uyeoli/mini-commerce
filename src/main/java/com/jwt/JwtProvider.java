@@ -10,7 +10,7 @@ import java.util.HashMap;
 import java.util.Map;
 
 public class JwtProvider {
-    public static final byte[] secret = "UyeolSecretKeyUyeolSecretKeyUyeolSecretKey".getBytes();
+    public static final byte[] secret = "UyeolSecretKeyUyeolSecretKeyUyefolSecretKey".getBytes();
     private final Key key = Keys.hmacShaKeyFor(secret);
 
     public Jwt createJwt(Map<String, Object> claims) {
