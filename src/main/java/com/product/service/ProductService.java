@@ -1,6 +1,7 @@
 package com.product.service;
 
 import com.product.dto.request.ProductCreateDto;
+import com.product.dto.request.ProductModifyDto;
 import com.product.dto.request.ProductSearchCondition;
 import com.product.dto.response.ProductResponseDto;
 
@@ -14,5 +15,5 @@ public interface ProductService {
 
     void delete(Long id);
 
-    void modify(Long id);
+    void modify(Long id, ProductModifyDto productModifyDto);
 }

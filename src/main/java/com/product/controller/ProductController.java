@@ -1,6 +1,7 @@
 package com.product.controller;
 
 import com.product.dto.request.ProductCreateDto;
+import com.product.dto.request.ProductModifyDto;
 import com.product.dto.request.ProductSearchCondition;
 import com.product.dto.response.ProductResponseDto;
 import com.product.service.ProductService;
@@ -28,8 +29,8 @@ public class ProductController {
     }
 
     @PatchMapping("/{id}")
-    public ResponseEntity<Void> modifyProduct(@PathVariable Long id) {
-        productService.modify(id);
+    public ResponseEntity<Void> modifyProduct(@PathVariable Long id, @RequestBody ProductModifyDto productModifyDto) {
+        productService.modify(id, productModifyDto);
         return ResponseEntity.ok().build();
     }
 

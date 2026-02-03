@@ -1,6 +1,7 @@
 package com.product.entity;
 
 import com.product.dto.request.ProductCreateDto;
+import com.product.dto.request.ProductModifyDto;
 import com.product.enums.Category;
 import jakarta.persistence.Entity;
 import jakarta.persistence.Id;
@@ -28,4 +29,11 @@ public class Product {
         return product;
     }
 
+    public void modify(ProductModifyDto productModifyDto) {
+        this.productName = productModifyDto.getProductName();
+        this.productInformation = productModifyDto.getProductInformation();
+        this.price = productModifyDto.getPrice();
+        this.stock = productModifyDto.getStock();
+        this.category = productModifyDto.getCategory();
+    }
 }

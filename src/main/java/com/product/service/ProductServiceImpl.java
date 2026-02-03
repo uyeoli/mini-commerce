@@ -1,6 +1,7 @@
 package com.product.service;
 
 import com.product.dto.request.ProductCreateDto;
+import com.product.dto.request.ProductModifyDto;
 import com.product.dto.request.ProductSearchCondition;
 import com.product.dto.response.ProductResponseDto;
 import com.product.entity.Product;
@@ -35,9 +36,10 @@ public class ProductServiceImpl implements ProductService{
     }
 
     @Override
-    public void modify(Long id) {
+    public void modify(Long id, ProductModifyDto productModifyDto) {
         Product product = productRepository.findById(id).orElseThrow(()
                 -> new IllegalArgumentException("product doesn't exist"));
+        product.modify(productModifyDto);
         productRepository.save(product);
     }
 }
