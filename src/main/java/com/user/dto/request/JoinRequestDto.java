@@ -10,10 +10,10 @@ public class JoinRequestDto {
     private String name;
     private String email;
 
-    public Member toEntity() {
+    public Member toEntity(String encodedPassword) {
         return Member.builder()
                 .loginId(this.loginId)
-                .password(this.password)
+                .password(encodedPassword)
                 .name(this.name)
                 .email(this.email)
                 .build();
