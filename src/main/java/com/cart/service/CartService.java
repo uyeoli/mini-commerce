@@ -1,17 +1,16 @@
 package com.cart.service;
 
+import com.cart.dto.CartCreateDto;
 import com.cart.dto.CartModifyDto;
 import com.cart.dto.CartResponseDto;
-import com.cart.dto.CartCreateDto;
-
-import java.util.List;
 
 public interface CartService {
 
-    List<CartResponseDto> getMyCart(Long userId);
+    CartResponseDto getMyCart(Long memberId);
 
-    void createCart(CartCreateDto cartCreateDto);
+    void addToCart(CartCreateDto cartCreateDto);
 
-    void modifyCart(CartModifyDto cartModifyDto);
+    void updateCartItem(Long cartItemId, CartModifyDto cartModifyDto);
+
+    void removeCartItem(Long cartItemId);
 }
-

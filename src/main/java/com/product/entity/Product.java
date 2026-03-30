@@ -3,9 +3,7 @@ package com.product.entity;
 import com.product.dto.request.ProductCreateDto;
 import com.product.dto.request.ProductModifyDto;
 import com.product.enums.Category;
-import jakarta.persistence.Entity;
-import jakarta.persistence.Id;
-import jakarta.persistence.Table;
+import jakarta.persistence.*;
 import lombok.Getter;
 
 @Entity
@@ -13,6 +11,7 @@ import lombok.Getter;
 @Table(name = "product", schema = "mini_commerce")
 public class Product {
     @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     private String productName;
     private String productInformation;
@@ -26,7 +25,15 @@ public class Product {
         product.productInformation = dto.getProductInformation();
         product.price = dto.getPrice();
         product.stock = dto.getStock();
+        product.category = dto.getCategory();
         return product;
+    }
+
+    public void decreaseStock(int quantity) {
+        if (this.stock < quantity) {
+            throw new IllegalStateException("재고가 부족합니다.");
+        }
+        this.stock -= quantity;
     }
 
     public void modify(ProductModifyDto productModifyDto) {

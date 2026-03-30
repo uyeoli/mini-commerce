@@ -1,4 +1,4 @@
-package com.cart.entity;
+package com.order.entity;
 
 import com.product.entity.Product;
 import jakarta.persistence.*;
@@ -8,16 +8,16 @@ import lombok.NoArgsConstructor;
 @Entity
 @Getter
 @NoArgsConstructor
-@Table(name = "cart_item", schema = "mini_commerce")
-public class CartItem {
+@Table(name = "order_item", schema = "mini_commerce")
+public class OrderItem {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "cart_id", nullable = false)
-    private Cart cart;
+    @JoinColumn(name = "order_id", nullable = false)
+    private Order order;
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "product_id", nullable = false)
@@ -26,15 +26,19 @@ public class CartItem {
     @Column(nullable = false)
     private int quantity;
 
-    public static CartItem create(Cart cart, Product product, int quantity) {
-        CartItem item = new CartItem();
-        item.cart = cart;
+    @Column(nullable = false)
+    private int price;  // 주문 시점의 단가
+
+    public static OrderItem create(Order order, Product product, int quantity) {
+        OrderItem item = new OrderItem();
+        item.order = order;
         item.product = product;
         item.quantity = quantity;
+        item.price = product.getPrice();
         return item;
     }
 
-    public void updateQuantity(int quantity) {
-        this.quantity = quantity;
+    public int getSubtotal() {
+        return this.price * this.quantity;
     }
 }
