@@ -7,6 +7,7 @@ import com.user.dto.response.LoginResponseDto;
 import com.user.entity.Member;
 import com.user.repository.MemberRepository;
 import lombok.RequiredArgsConstructor;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -20,6 +21,7 @@ public class LoginService {
 
     private final MemberRepository memberRepository;
     private final JwtProvider jwtProvider;
+    private final BCryptPasswordEncoder passwordEncoder;
 
     public LoginResponseDto login(LoginRequestDto loginRequestDto) {
         Member member = memberRepository.findByLoginId(loginRequestDto.getLoginId());
@@ -28,7 +30,7 @@ public class LoginService {
             throw new IllegalArgumentException("존재하지 않는 사용자입니다.");
         }
 
-        if (!member.getPassword().equals(loginRequestDto.getPassword())) {
+        if (!passwordEncoder.matches(loginRequestDto.getPassword(), member.getPassword())) {
             throw new IllegalArgumentException("비밀번호가 일치하지 않습니다.");
         }
 
