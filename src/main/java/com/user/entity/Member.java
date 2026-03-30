@@ -34,4 +34,9 @@ public class Member {
     @Column(name = "created_at")
     private Instant createdAt;
 
+    public void update(String name, String email, String password) {
+        if (name != null) this.name = name;
+        if (email != null) this.email = email;
+        if (password != null) this.password = password;
+    }
 }

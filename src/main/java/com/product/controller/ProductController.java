@@ -17,15 +17,20 @@ import java.util.List;
 public class ProductController {
     private final ProductService productService;
 
-    @GetMapping("/product")
-    public ResponseEntity<List<ProductResponseDto>> getProduct(@RequestBody ProductSearchCondition condition) {
+    @GetMapping
+    public ResponseEntity<List<ProductResponseDto>> getProducts(@ModelAttribute ProductSearchCondition condition) {
         return ResponseEntity.ok(productService.getProductByCondition(condition));
+    }
+
+    @GetMapping("/{id}")
+    public ResponseEntity<ProductResponseDto> getProduct(@PathVariable Long id) {
+        return ResponseEntity.ok(productService.getProductById(id));
     }
 
     @PostMapping
     public ResponseEntity<Void> createProduct(@RequestBody ProductCreateDto productCreateDto) {
         productService.createProduct(productCreateDto);
-        return ResponseEntity.ok().build();
+        return ResponseEntity.status(201).build();
     }
 
     @PatchMapping("/{id}")
@@ -34,5 +39,9 @@ public class ProductController {
         return ResponseEntity.ok().build();
     }
 
-
+    @DeleteMapping("/{id}")
+    public ResponseEntity<Void> deleteProduct(@PathVariable Long id) {
+        productService.delete(id);
+        return ResponseEntity.noContent().build();
+    }
 }

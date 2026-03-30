@@ -11,6 +11,8 @@ public interface ProductService {
 
     List<ProductResponseDto> getProductByCondition(ProductSearchCondition condition);
 
+    ProductResponseDto getProductById(Long id);
+
     void createProduct(ProductCreateDto productCreateDto);
 
     void delete(Long id);

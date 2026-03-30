@@ -34,6 +34,7 @@ public class LoginService {
 
         // 3. JWT 토큰 생성
         Map<String, Object> claims = new HashMap<>();
+        claims.put("memberId", member.getId());
         claims.put("loginId", member.getLoginId());
         claims.put("name", member.getName());
         claims.put("email", member.getEmail());
@@ -42,6 +43,10 @@ public class LoginService {
 
         // 4. 응답 DTO 생성
         return LoginResponseDto.builder()
+                .memberId(member.getId())
+                .loginId(member.getLoginId())
+                .name(member.getName())
+                .email(member.getEmail())
                 .accessToken(jwt.getAccessToken())
                 .refreshToken(jwt.getRefreshToken())
                 .message("로그인에 성공했습니다.")
