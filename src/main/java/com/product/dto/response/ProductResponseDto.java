@@ -14,6 +14,7 @@ public class ProductResponseDto {
     private Integer price;
     private int stock;
     private Category category;
+    private String imageUrl;
     private boolean stockShortage;  // 재고 5개 이하 시 true
 
     public static ProductResponseDto from(Product product) {
@@ -24,6 +25,7 @@ public class ProductResponseDto {
                 .price(product.getPrice())
                 .stock(product.getStock())
                 .category(product.getCategory())
+                .imageUrl(product.getImageUrl())
                 .stockShortage(product.getStock() <= 5)
                 .build();
     }

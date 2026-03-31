@@ -18,7 +18,7 @@ public class ProductController {
     private final ProductService productService;
 
     @GetMapping
-    public ResponseEntity<List<ProductResponseDto>> getProducts(@ModelAttribute ProductSearchCondition condition) {
+    public ResponseEntity<List<ProductResponseDto>> getProducts(ProductSearchCondition condition) {
         return ResponseEntity.ok(productService.getProductByCondition(condition));
     }
 

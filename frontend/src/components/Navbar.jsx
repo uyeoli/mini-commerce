@@ -1,10 +1,51 @@
 import { Link, useNavigate, useLocation } from 'react-router-dom'
+import { useState, useEffect } from 'react'
 import { useAuth } from '../contexts/AuthContext'
+
+function useTokenExpiry() {
+  const [remaining, setRemaining] = useState(null)
+
+  useEffect(() => {
+    const calc = () => {
+      const token = localStorage.getItem('accessToken')
+      if (!token) return setRemaining(null)
+      try {
+        const payload = JSON.parse(atob(token.split('.')[1]))
+        const diff = payload.exp * 1000 - Date.now()
+        setRemaining(diff > 0 ? diff : 0)
+      } catch {
+        setRemaining(null)
+      }
+    }
+
+    calc()
+    const id = setInterval(calc, 1000)
+    return () => clearInterval(id)
+  }, [])
+
+  return remaining
+}
+
+function formatRemaining(ms) {
+  if (ms === null) return null
+  const totalSec = Math.floor(ms / 1000)
+  const m = Math.floor(totalSec / 60)
+  const s = totalSec % 60
+  return `${String(m).padStart(2, '0')}:${String(s).padStart(2, '0')}`
+}
 
 export default function Navbar() {
   const { user, signOut } = useAuth()
   const navigate = useNavigate()
   const location = useLocation()
+  const remaining = useTokenExpiry()
+
+  useEffect(() => {
+    if (remaining === 0) {
+      signOut()
+      navigate('/login')
+    }
+  }, [remaining])
 
   const handleLogout = () => {
     signOut()
@@ -42,6 +83,17 @@ export default function Navbar() {
           >
             {user?.name}님
           </Link>
+          {remaining !== null && (
+            <span
+              className={`text-xs font-mono px-2 py-1 rounded ${
+                remaining < 5 * 60 * 1000
+                  ? 'bg-red-100 text-red-600'
+                  : 'bg-gray-100 text-gray-500'
+              }`}
+            >
+              {formatRemaining(remaining)}
+            </span>
+          )}
           <button
             onClick={handleLogout}
             className="text-sm bg-gray-100 text-gray-700 px-3 py-1.5 rounded-lg hover:bg-gray-200 transition-colors"

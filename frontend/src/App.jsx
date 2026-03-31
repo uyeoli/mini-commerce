@@ -9,6 +9,8 @@ import CartPage from './pages/CartPage'
 import OrdersPage from './pages/OrdersPage'
 import OrderDetailPage from './pages/OrderDetailPage'
 import ProfilePage from './pages/ProfilePage'
+import ProductCreatePage from './pages/ProductCreatePage'
+import ProductEditPage from './pages/ProductEditPage'
 
 function PrivateRoute({ children }) {
   const { isLoggedIn } = useAuth()
@@ -31,6 +33,8 @@ function AppLayout() {
           <Route path="/login" element={<PublicRoute><LoginPage /></PublicRoute>} />
           <Route path="/join" element={<PublicRoute><JoinPage /></PublicRoute>} />
           <Route path="/products" element={<PrivateRoute><ProductListPage /></PrivateRoute>} />
+          <Route path="/products/create" element={<PrivateRoute><ProductCreatePage /></PrivateRoute>} />
+          <Route path="/products/:id/edit" element={<PrivateRoute><ProductEditPage /></PrivateRoute>} />
           <Route path="/products/:id" element={<PrivateRoute><ProductDetailPage /></PrivateRoute>} />
           <Route path="/cart" element={<PrivateRoute><CartPage /></PrivateRoute>} />
           <Route path="/orders" element={<PrivateRoute><OrdersPage /></PrivateRoute>} />

@@ -18,6 +18,7 @@ public class Product {
     private Integer price;
     private int stock;
     private Category category;
+    private String imageUrl;
 
     public static Product from(ProductCreateDto dto) {
         Product product = new Product();
@@ -26,6 +27,7 @@ public class Product {
         product.price = dto.getPrice();
         product.stock = dto.getStock();
         product.category = dto.getCategory();
+        product.imageUrl = dto.getImageUrl();
         return product;
     }
 
@@ -42,5 +44,6 @@ public class Product {
         this.price = productModifyDto.getPrice();
         this.stock = productModifyDto.getStock();
         this.category = productModifyDto.getCategory();
+        if (productModifyDto.getImageUrl() != null) this.imageUrl = productModifyDto.getImageUrl();
     }
 }

@@ -1,9 +1,11 @@
 import { useState, useEffect, useCallback } from 'react'
+import { useNavigate } from 'react-router-dom'
 import { searchProducts } from '../api/productApi'
 import ProductCard from '../components/ProductCard'
 import { CATEGORY_LABELS, CATEGORIES } from '../constants'
 
 export default function ProductListPage() {
+  const navigate = useNavigate()
   const [products, setProducts] = useState([])
   const [loading, setLoading] = useState(true)
   const [searchName, setSearchName] = useState('')
@@ -40,9 +42,17 @@ export default function ProductListPage() {
 
   return (
     <div className="max-w-6xl mx-auto px-4 py-8">
-      <div className="mb-8">
-        <h1 className="text-2xl font-bold text-gray-900 mb-1">상품 목록</h1>
-        <p className="text-sm text-gray-500">원하는 상품을 찾아보세요</p>
+      <div className="flex items-center justify-between mb-8">
+        <div>
+          <h1 className="text-2xl font-bold text-gray-900 mb-1">상품 목록</h1>
+          <p className="text-sm text-gray-500">원하는 상품을 찾아보세요</p>
+        </div>
+        <button
+          onClick={() => navigate('/products/create')}
+          className="bg-indigo-600 text-white px-4 py-2.5 rounded-lg text-sm font-semibold hover:bg-indigo-700 transition-colors"
+        >
+          + 상품 등록
+        </button>
       </div>
 
       {/* 검색 */}

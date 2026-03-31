@@ -9,8 +9,16 @@ export default function ProductCard({ product }) {
       className="card p-4 cursor-pointer hover:shadow-md transition-shadow duration-200"
       onClick={() => navigate(`/products/${product.id}`)}
     >
-      <div className="aspect-square bg-gradient-to-br from-indigo-50 to-purple-50 rounded-lg mb-3 flex items-center justify-center text-4xl">
-        {getCategoryEmoji(product.category)}
+      <div className="aspect-square bg-gradient-to-br from-indigo-50 to-purple-50 rounded-lg mb-3 overflow-hidden flex items-center justify-center text-4xl">
+        {product.imageUrl ? (
+          <img
+            src={`/api${product.imageUrl}`}
+            alt={product.productName}
+            className="w-full h-full object-cover"
+          />
+        ) : (
+          getCategoryEmoji(product.category)
+        )}
       </div>
 
       <div className="space-y-1.5">

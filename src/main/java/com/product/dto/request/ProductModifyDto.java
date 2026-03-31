@@ -10,5 +10,6 @@ public class ProductModifyDto {
     private Integer price;
     private int stock;
     private Category category;
+    private String imageUrl;
 
 }

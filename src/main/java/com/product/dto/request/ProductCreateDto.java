@@ -10,4 +10,5 @@ public class ProductCreateDto {
     private Integer price;
     private int stock;
     private Category category;
+    private String imageUrl;
 }

@@ -47,18 +47,34 @@ export default function ProductDetailPage() {
 
   return (
     <div className="max-w-3xl mx-auto px-4 py-8">
-      <button
-        onClick={() => navigate(-1)}
-        className="flex items-center gap-1.5 text-sm text-gray-500 hover:text-indigo-600 mb-6 transition-colors"
-      >
-        ← 뒤로가기
-      </button>
+      <div className="flex items-center justify-between mb-6">
+        <button
+          onClick={() => navigate(-1)}
+          className="flex items-center gap-1.5 text-sm text-gray-500 hover:text-indigo-600 transition-colors"
+        >
+          ← 뒤로가기
+        </button>
+        <button
+          onClick={() => navigate(`/products/${id}/edit`)}
+          className="text-sm bg-gray-100 text-gray-700 px-4 py-2 rounded-lg hover:bg-gray-200 font-semibold transition-colors"
+        >
+          수정하기
+        </button>
+      </div>
 
       <div className="card p-6 md:p-8">
         <div className="grid md:grid-cols-2 gap-8">
           {/* 이미지 영역 */}
-          <div className="aspect-square bg-gradient-to-br from-indigo-50 to-purple-50 rounded-xl flex items-center justify-center text-8xl">
-            {getCategoryEmoji(product.category)}
+          <div className="aspect-square bg-gradient-to-br from-indigo-50 to-purple-50 rounded-xl overflow-hidden flex items-center justify-center text-8xl">
+            {product.imageUrl ? (
+              <img
+                src={`/api${product.imageUrl}`}
+                alt={product.productName}
+                className="w-full h-full object-cover"
+              />
+            ) : (
+              getCategoryEmoji(product.category)
+            )}
           </div>
 
           {/* 상품 정보 */}
