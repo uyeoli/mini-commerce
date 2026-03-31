@@ -1,5 +1,6 @@
 package com.user.service;
 
+import com.config.redis.RedisTokenService;
 import com.jwt.Jwt;
 import com.jwt.JwtProvider;
 import com.user.dto.request.LoginRequestDto;
@@ -22,6 +23,7 @@ public class LoginService {
     private final MemberRepository memberRepository;
     private final JwtProvider jwtProvider;
     private final BCryptPasswordEncoder passwordEncoder;
+    private final RedisTokenService redisTokenService;
 
     public LoginResponseDto login(LoginRequestDto loginRequestDto) {
         Member member = memberRepository.findByLoginId(loginRequestDto.getLoginId());
@@ -42,6 +44,7 @@ public class LoginService {
         claims.put("email", member.getEmail());
 
         Jwt jwt = jwtProvider.createJwt(claims);
+        redisTokenService.saveRefreshToken(member.getId(), jwt.getRefreshToken());
 
         // 4. 응답 DTO 생성
         return LoginResponseDto.builder()
