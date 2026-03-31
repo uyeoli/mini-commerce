@@ -1,0 +1,7 @@
+frontend/
+build/
+.gradle/
+.idea/
+uploads/
+docs/
+*.md
